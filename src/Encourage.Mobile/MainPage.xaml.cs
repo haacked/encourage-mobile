@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Encourage.Mobile;
 using Xamarin.Forms;
 
 namespace Encourage
@@ -76,7 +77,13 @@ namespace Encourage
         }
 
         async void OnButtonClicked(object sender, EventArgs args)
-            => await DisplayAlert("Hello!", GetRandomMessage((sender as Button)?.Text), "OK");
+        {
+            var encouragement = GetRandomMessage((sender as Button)?.Text);
+            await Navigation.PushAsync(new EncouragementPage
+            {
+                BindingContext = encouragement
+            });
+        }
 
         string GetRandomMessage(string? mood)
         {

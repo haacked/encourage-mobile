@@ -4,16 +4,8 @@
              xmlns:local="clr-namespace:Encourage"
              x:Class="Encourage.MainPage"
              Title="How Are You Feeling?">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="+" />
-    </ContentPage.ToolbarItems>    
     <StackLayout
         BackgroundColor="AliceBlue">
-        <Label Text="How do you feel?"
-               FontSize="Title"
-               VerticalOptions="FillAndExpand"
-               VerticalTextAlignment="Center"
-               HorizontalTextAlignment="Center"/>
         <Button
             Text="Sad"
             BackgroundColor="DarkGray"

@@ -14,4 +14,8 @@
     <ItemGroup>
         <PackageReference Include="Xamarin.Forms" Version="4.4.0.991265" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Remove="EncouragementDisplay.cs" />
+      <Compile Remove="EncouragementDisplay.cs" />
+    </ItemGroup>
 </Project>
