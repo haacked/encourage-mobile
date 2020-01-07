@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Encourage"
+             x:Class="Encourage.MainPage"
+             Title="How Are You Feeling?">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="+" />
+    </ContentPage.ToolbarItems>    
+    <StackLayout
+        BackgroundColor="AliceBlue">
+        <Label Text="How do you feel?"
+               FontSize="Title"
+               VerticalOptions="FillAndExpand"
+               VerticalTextAlignment="Center"
+               HorizontalTextAlignment="Center"/>
+        <Button
+            Text="Sad"
+            BackgroundColor="DarkGray"
+            TextColor="White"
+            VerticalOptions="FillAndExpand"
+            Clicked="OnButtonClicked" />
+        <Button
+            Text="Bored"
+            BackgroundColor="Gray"
+            TextColor="White"
+            VerticalOptions="FillAndExpand"
+            Clicked="OnButtonClicked" />
+        <Button
+            Text="Frustrated"
+            BackgroundColor="Red"
+            TextColor="AntiqueWhite"
+            VerticalOptions="FillAndExpand"
+            Clicked="OnButtonClicked" />
+        <Button
+            Text="Angry"
+            BackgroundColor="DarkRed"
+            TextColor="AntiqueWhite"
+            VerticalOptions="FillAndExpand"
+            Clicked="OnButtonClicked" />
+        <Button
+            Text="Happy"
+            BackgroundColor="Green"
+            TextColor="AntiqueWhite"
+            VerticalOptions="FillAndExpand"
+            Clicked="OnButtonClicked" />
+        <!-- Place new controls here -->
+    </StackLayout>
+</ContentPage>
