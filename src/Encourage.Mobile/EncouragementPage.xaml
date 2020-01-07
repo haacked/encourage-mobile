@@ -1,6 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Encourage.Mobile.EncouragementPage">
-    <StackLayout BackgroundColor="LightYellow">
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Encourage.Mobile.EncouragementPage">
+    <StackLayout
+        BackgroundColor="LightYellow">
+        <Image
+            Source="{Binding ImageUrl}"
+            Margin="0,30,0,0"/>
         <Label
             Text="{Binding Message}"
             FontSize="Title"
