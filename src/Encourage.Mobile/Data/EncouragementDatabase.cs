@@ -17,11 +17,10 @@ namespace Encourage.Mobile.Data
             {
                 // Populate data the first time.
                 _database.CreateTableAsync<Mood>().Wait();
-                foreach (var moodName in _defaultEncouragements.Keys)
+                foreach (var (mood, encouragements) in _defaultEncouragements)
                 {
-                    var mood = new Mood { Name = moodName };
                     SaveMood(mood).Wait();
-                    foreach (var encouragement in _defaultEncouragements[mood.Name])
+                    foreach (var encouragement in encouragements)
                     {
                         encouragement.MoodId = mood.Id;
                         SaveEncouragementAsync(encouragement).Wait();
@@ -86,11 +85,11 @@ namespace Encourage.Mobile.Data
                 : _database.UpdateAsync(entity);
         }
 
-        readonly Dictionary<string, List<Encouragement>> _defaultEncouragements
-            = new Dictionary<string, List<Encouragement>>
+        readonly Dictionary<Mood, List<Encouragement>> _defaultEncouragements
+            = new Dictionary<Mood, List<Encouragement>>
         {
             {
-                "Sad",
+                new Mood { Name = "Sad" },
                 new List<Encouragement>
                 {
                     new Encouragement
@@ -126,7 +125,7 @@ namespace Encourage.Mobile.Data
                 }
             },
             {
-                "Bored",
+                new Mood { Name = "Bored" },
                 new List<Encouragement>
                 {
                     new Encouragement
@@ -152,7 +151,7 @@ namespace Encourage.Mobile.Data
                 }
             },
             {
-                "Frustrated",
+                new Mood { Name = "Frustrated" },
                 new List<Encouragement>
                 {
                     new Encouragement
@@ -178,7 +177,7 @@ namespace Encourage.Mobile.Data
                 }
             },
             {
-                "Angry",
+                new Mood { Name = "Angry" },
                 new List<Encouragement>
                 {
                     new Encouragement
@@ -209,7 +208,7 @@ namespace Encourage.Mobile.Data
                 }
             },
             {
-                "Happy",
+                new Mood { Name = "Happy" },
                 new List<Encouragement>
                 {
                     new Encouragement
