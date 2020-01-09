@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Encourage.Mobile.Models;
 using SQLite;
@@ -17,11 +16,15 @@ namespace Encourage.Mobile.Data
             if (result == CreateTableResult.Created)
             {
                 // Populate data the first time.
-                foreach (var mood in _defaultEncouragements.Keys)
+                _database.CreateTableAsync<Mood>().Wait();
+                foreach (var moodName in _defaultEncouragements.Keys)
                 {
-                    foreach (var encouragement in _defaultEncouragements[mood])
+                    var mood = new Mood { Name = moodName };
+                    SaveMood(mood).Wait();
+                    foreach (var encouragement in _defaultEncouragements[mood.Name])
                     {
-                        encouragement.Mood = mood;
+                        encouragement.Mood = mood.Name;
+                        encouragement.MoodId = mood.Id;
                         SaveEncouragementAsync(encouragement).Wait();
                     }
                 }
@@ -42,14 +45,12 @@ namespace Encourage.Mobile.Data
 
         public Task<Encouragement> GetEncouragmentAsync(int id)
         {
-            return GetById<Encouragement>(id);
+            return GetByIdAsync<Encouragement>(id);
         }
 
         public Task<int> SaveEncouragementAsync(Encouragement encouragment)
         {
-            return encouragment.Id == 0
-                ? _database.InsertAsync(encouragment)
-                : _database.UpdateAsync(encouragment);
+            return SaveEntityAsync(encouragment);
         }
 
         public Task<int> DeleteEncouragmentAsync(Encouragement encouragement)
@@ -59,14 +60,26 @@ namespace Encourage.Mobile.Data
 
         public Task<Mood> GetMoodAsync(int id)
         {
-            return GetById<Mood>(id);
+            return GetByIdAsync<Mood>(id);
         }
 
-        Task<TEntity> GetById<TEntity>(int id) where TEntity : IDatabaseEntity, new()
+        public Task<int> SaveMood(Mood mood)
+        {
+            return SaveEntityAsync(mood);
+        }
+
+        Task<TEntity> GetByIdAsync<TEntity>(int id) where TEntity : IDatabaseEntity, new()
         {
             return _database.Table<TEntity>()
                             .Where(i => i.Id == id)
                             .FirstOrDefaultAsync();
+        }
+
+        Task<int> SaveEntityAsync<TEntity>(TEntity entity) where TEntity : IDatabaseEntity
+        {
+            return entity.Id == 0
+                ? _database.InsertAsync(entity)
+                : _database.UpdateAsync(entity);
         }
 
         readonly Dictionary<string, List<Encouragement>> _defaultEncouragements
