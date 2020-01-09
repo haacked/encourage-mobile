@@ -42,9 +42,7 @@ namespace Encourage.Mobile.Data
 
         public Task<Encouragement> GetEncouragmentAsync(int id)
         {
-            return _database.Table<Encouragement>()
-                            .Where(i => i.Id == id)
-                            .FirstOrDefaultAsync();
+            return GetById<Encouragement>(id);
         }
 
         public Task<int> SaveEncouragementAsync(Encouragement encouragment)
@@ -59,6 +57,17 @@ namespace Encourage.Mobile.Data
             return _database.DeleteAsync(encouragement);
         }
 
+        public Task<Mood> GetMoodAsync(int id)
+        {
+            return GetById<Mood>(id);
+        }
+
+        Task<TEntity> GetById<TEntity>(int id) where TEntity : IDatabaseEntity, new()
+        {
+            return _database.Table<TEntity>()
+                            .Where(i => i.Id == id)
+                            .FirstOrDefaultAsync();
+        }
 
         readonly Dictionary<string, List<Encouragement>> _defaultEncouragements
             = new Dictionary<string, List<Encouragement>>

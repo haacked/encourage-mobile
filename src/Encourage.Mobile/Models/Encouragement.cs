@@ -2,7 +2,7 @@
 
 namespace Encourage.Mobile.Models
 {
-    public class Encouragement
+    public class Encouragement : IDatabaseEntity
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
