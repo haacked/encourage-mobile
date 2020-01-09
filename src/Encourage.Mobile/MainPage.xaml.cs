@@ -1,5 +1,6 @@
 ﻿using System;
 using Encourage.Mobile;
+using Encourage.Mobile.Data;
 using Encourage.Mobile.Models;
 using Xamarin.Forms;
 
@@ -7,11 +8,14 @@ namespace Encourage
 {
     public partial class MainPage : ContentPage
     {
-        static readonly EncouragementRepository _encouragementRepository = new EncouragementRepository();
-        
-        public MainPage()
+        readonly EncouragementRepository _encouragementRepository;
+        readonly EncouragementDatabase _database;
+
+        public MainPage(EncouragementDatabase database)
         {
             InitializeComponent();
+            _database = database;
+            _encouragementRepository = new EncouragementRepository(_database);
         }
 
         async void OnButtonClicked(object sender, EventArgs args)

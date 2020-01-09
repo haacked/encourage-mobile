@@ -58,6 +58,11 @@ namespace Encourage.Mobile.Data
             return _database.DeleteAsync(encouragement);
         }
 
+        public Task<List<Mood>> GetMoodsAsync()
+        {
+            return _database.Table<Mood>().ToListAsync();
+        }
+
         public Task<Mood> GetMoodAsync(int id)
         {
             return GetByIdAsync<Mood>(id);

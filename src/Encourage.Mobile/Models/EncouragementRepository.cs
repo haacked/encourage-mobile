@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Threading.Tasks;
 using Encourage.Mobile.Data;
 
@@ -9,7 +8,12 @@ namespace Encourage.Mobile.Models
     {
         static readonly Random _random = new Random();
 
-        static EncouragementDatabase _database = new EncouragementDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Encouragements.db3"));
+        readonly EncouragementDatabase _database;
+
+        public EncouragementRepository(EncouragementDatabase database)
+        {
+            _database = database;
+        }
 
         public async Task<Encouragement> GetRandomEncouragement(string mood)
         {

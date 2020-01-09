@@ -1,4 +1,7 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using System.IO;
+using Encourage.Mobile.Data;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -10,8 +13,8 @@ namespace Encourage
         public App()
         {
             InitializeComponent();
-
-            MainPage = new NavigationPage(new MainPage());
+            var database = new EncouragementDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Encouragements.db3"));
+            MainPage = new NavigationPage(new MainPage(database));
         }
 
         protected override void OnStart()
