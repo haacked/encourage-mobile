@@ -27,8 +27,9 @@ namespace Encourage
 
         async void OnButtonClicked(object sender, EventArgs args)
         {
-            var mood = (sender as Button)?.Text ?? "unknown";
-            var encouragement = await _encouragementRepository.GetRandomEncouragement(mood);
+            var button = sender as Button ?? throw new InvalidOperationException("A null button was somehow clicked.");
+            var mood = button.BindingContext as Mood ?? throw new InvalidOperationException("A button with no mood was somehow clicked.");
+            var encouragement = await _encouragementRepository.GetRandomEncouragement(mood.Name);
             await Navigation.PushAsync(new EncouragementPage
             {
                 BindingContext = encouragement
