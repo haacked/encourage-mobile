@@ -5,38 +5,14 @@
              x:Class="Encourage.MainPage"
              Visual="Material"
              Title="How Are You Feeling?">
-    <StackLayout
-        BackgroundColor="AliceBlue">
-        <Button
-            Text="Sad"
-            BackgroundColor="DarkGray"
-            TextColor="White"
-            VerticalOptions="FillAndExpand"
-            Clicked="OnButtonClicked" />
-        <Button
-            Text="Bored"
-            BackgroundColor="Gray"
-            TextColor="White"
-            VerticalOptions="FillAndExpand"
-            Clicked="OnButtonClicked" />
-        <Button
-            Text="Frustrated"
-            BackgroundColor="Red"
-            TextColor="AntiqueWhite"
-            VerticalOptions="FillAndExpand"
-            Clicked="OnButtonClicked" />
-        <Button
-            Text="Angry"
-            BackgroundColor="DarkRed"
-            TextColor="AntiqueWhite"
-            VerticalOptions="FillAndExpand"
-            Clicked="OnButtonClicked" />
-        <Button
-            Text="Happy"
-            BackgroundColor="Green"
-            TextColor="AntiqueWhite"
-            VerticalOptions="FillAndExpand"
-            Clicked="OnButtonClicked" />
-        <!-- Place new controls here -->
+    <StackLayout x:Name="moodsLayout">
+        <BindableLayout.ItemTemplate>
+            <DataTemplate>
+                <Button
+                    Text="{Binding Name}"
+                    VerticalOptions="FillAndExpand"
+                    Clicked="OnButtonClicked"/>
+            </DataTemplate>
+        </BindableLayout.ItemTemplate>
     </StackLayout>
 </ContentPage>

@@ -18,6 +18,13 @@ namespace Encourage
             _encouragementRepository = new EncouragementRepository(_database);
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            BindableLayout.SetItemsSource(moodsLayout, _database.GetMoodsAsync().Result);
+        }
+
         async void OnButtonClicked(object sender, EventArgs args)
         {
             var mood = (sender as Button)?.Text ?? "unknown";
