@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Encourage.Mobile.Models;
 using SQLite;
@@ -17,11 +16,13 @@ namespace Encourage.Mobile.Data
             if (result == CreateTableResult.Created)
             {
                 // Populate data the first time.
-                foreach (var mood in _defaultEncouragements.Keys)
+                _database.CreateTableAsync<Mood>().Wait();
+                foreach (var (mood, encouragements) in _defaultEncouragements)
                 {
-                    foreach (var encouragement in _defaultEncouragements[mood])
+                    SaveMood(mood).Wait();
+                    foreach (var encouragement in encouragements)
                     {
-                        encouragement.Mood = mood;
+                        encouragement.MoodId = mood.Id;
                         SaveEncouragementAsync(encouragement).Wait();
                     }
                 }
@@ -33,25 +34,21 @@ namespace Encourage.Mobile.Data
             return _database.Table<Encouragement>().ToListAsync();
         }
 
-        public Task<List<Encouragement>> GetEncouragementsAsync(string mood)
+        public Task<List<Encouragement>> GetEncouragementsForMoodAsync(int moodId)
         {
             return _database.Table<Encouragement>()
-                            .Where(i => i.Mood == mood)
+                            .Where(i => i.MoodId == moodId)
                             .ToListAsync();
         }
 
         public Task<Encouragement> GetEncouragmentAsync(int id)
         {
-            return _database.Table<Encouragement>()
-                            .Where(i => i.Id == id)
-                            .FirstOrDefaultAsync();
+            return GetByIdAsync<Encouragement>(id);
         }
 
         public Task<int> SaveEncouragementAsync(Encouragement encouragment)
         {
-            return encouragment.Id == 0
-                ? _database.InsertAsync(encouragment)
-                : _database.UpdateAsync(encouragment);
+            return SaveEntityAsync(encouragment);
         }
 
         public Task<int> DeleteEncouragmentAsync(Encouragement encouragement)
@@ -59,12 +56,40 @@ namespace Encourage.Mobile.Data
             return _database.DeleteAsync(encouragement);
         }
 
+        public Task<List<Mood>> GetMoodsAsync()
+        {
+            return _database.Table<Mood>().ToListAsync();
+        }
 
-        readonly Dictionary<string, List<Encouragement>> _defaultEncouragements
-            = new Dictionary<string, List<Encouragement>>
+        public Task<Mood> GetMoodAsync(int id)
+        {
+            return GetByIdAsync<Mood>(id);
+        }
+
+        public Task<int> SaveMood(Mood mood)
+        {
+            return SaveEntityAsync(mood);
+        }
+
+        Task<TEntity> GetByIdAsync<TEntity>(int id) where TEntity : IDatabaseEntity, new()
+        {
+            return _database.Table<TEntity>()
+                            .Where(i => i.Id == id)
+                            .FirstOrDefaultAsync();
+        }
+
+        Task<int> SaveEntityAsync<TEntity>(TEntity entity) where TEntity : IDatabaseEntity
+        {
+            return entity.Id == 0
+                ? _database.InsertAsync(entity)
+                : _database.UpdateAsync(entity);
+        }
+
+        readonly Dictionary<Mood, List<Encouragement>> _defaultEncouragements
+            = new Dictionary<Mood, List<Encouragement>>
         {
             {
-                "Sad",
+                new Mood { Name = "Sad", BackgroundColor = "DarkGray", TextColor = "White" },
                 new List<Encouragement>
                 {
                     new Encouragement
@@ -100,7 +125,7 @@ namespace Encourage.Mobile.Data
                 }
             },
             {
-                "Bored",
+                new Mood { Name = "Bored", BackgroundColor = "Gray", TextColor = "White" },
                 new List<Encouragement>
                 {
                     new Encouragement
@@ -126,7 +151,7 @@ namespace Encourage.Mobile.Data
                 }
             },
             {
-                "Frustrated",
+                new Mood { Name = "Frustrated", BackgroundColor = "Red", TextColor = "AntiqueWhite" },
                 new List<Encouragement>
                 {
                     new Encouragement
@@ -152,7 +177,7 @@ namespace Encourage.Mobile.Data
                 }
             },
             {
-                "Angry",
+                new Mood { Name = "Angry", BackgroundColor = "DarkRed", TextColor = "AntiqueWhite" },
                 new List<Encouragement>
                 {
                     new Encouragement
@@ -183,7 +208,7 @@ namespace Encourage.Mobile.Data
                 }
             },
             {
-                "Happy",
+                new Mood { Name = "Happy", BackgroundColor = "Green", TextColor = "AntiqueWhite" },
                 new List<Encouragement>
                 {
                     new Encouragement

@@ -1,42 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Encourage"
+             xmlns:converters="clr-namespace:Encourage.Mobile.UI"
              x:Class="Encourage.MainPage"
              Visual="Material"
              Title="How Are You Feeling?">
-    <StackLayout
-        BackgroundColor="AliceBlue">
-        <Button
-            Text="Sad"
-            BackgroundColor="DarkGray"
-            TextColor="White"
-            VerticalOptions="FillAndExpand"
-            Clicked="OnButtonClicked" />
-        <Button
-            Text="Bored"
-            BackgroundColor="Gray"
-            TextColor="White"
-            VerticalOptions="FillAndExpand"
-            Clicked="OnButtonClicked" />
-        <Button
-            Text="Frustrated"
-            BackgroundColor="Red"
-            TextColor="AntiqueWhite"
-            VerticalOptions="FillAndExpand"
-            Clicked="OnButtonClicked" />
-        <Button
-            Text="Angry"
-            BackgroundColor="DarkRed"
-            TextColor="AntiqueWhite"
-            VerticalOptions="FillAndExpand"
-            Clicked="OnButtonClicked" />
-        <Button
-            Text="Happy"
-            BackgroundColor="Green"
-            TextColor="AntiqueWhite"
-            VerticalOptions="FillAndExpand"
-            Clicked="OnButtonClicked" />
-        <!-- Place new controls here -->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:UniversalValueConverter x:Key="UniversalValueConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout x:Name="moodsLayout">
+        <BindableLayout.ItemTemplate>
+            <DataTemplate>
+                <Button
+                    Text="{Binding Name}"
+                    BackgroundColor="{Binding BackgroundColor, Converter={StaticResource UniversalValueConverter}}"
+                    TextColor="{Binding TextColor, Converter={StaticResource UniversalValueConverter}}"
+                    VerticalOptions="FillAndExpand"
+                    Clicked="OnButtonClicked"/>
+            </DataTemplate>
+        </BindableLayout.ItemTemplate>
     </StackLayout>
 </ContentPage>
