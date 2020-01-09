@@ -5,6 +5,7 @@ using Xamarin.Forms;
 
 namespace Encourage.Mobile.UI
 {
+    // CREDIT: https://blog.scottlogic.com/2010/07/09/a-universal-value-converter-for-wpf.html
     public class UniversalValueConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
