@@ -89,7 +89,7 @@ namespace Encourage.Mobile.Data
             = new Dictionary<Mood, List<Encouragement>>
         {
             {
-                new Mood { Name = "Sad" },
+                new Mood { Name = "Sad", BackgroundColor = "DarkGray", TextColor = "White" },
                 new List<Encouragement>
                 {
                     new Encouragement
@@ -125,7 +125,7 @@ namespace Encourage.Mobile.Data
                 }
             },
             {
-                new Mood { Name = "Bored" },
+                new Mood { Name = "Bored", BackgroundColor = "Gray", TextColor = "White" },
                 new List<Encouragement>
                 {
                     new Encouragement
@@ -151,7 +151,7 @@ namespace Encourage.Mobile.Data
                 }
             },
             {
-                new Mood { Name = "Frustrated" },
+                new Mood { Name = "Frustrated", BackgroundColor = "Red", TextColor = "AntiqueWhite" },
                 new List<Encouragement>
                 {
                     new Encouragement
@@ -177,7 +177,7 @@ namespace Encourage.Mobile.Data
                 }
             },
             {
-                new Mood { Name = "Angry" },
+                new Mood { Name = "Angry", BackgroundColor = "DarkRed", TextColor = "AntiqueWhite" },
                 new List<Encouragement>
                 {
                     new Encouragement
@@ -208,7 +208,7 @@ namespace Encourage.Mobile.Data
                 }
             },
             {
-                new Mood { Name = "Happy" },
+                new Mood { Name = "Happy", BackgroundColor = "Green", TextColor = "AntiqueWhite" },
                 new List<Encouragement>
                 {
                     new Encouragement
