@@ -23,7 +23,6 @@ namespace Encourage.Mobile.Data
                     SaveMood(mood).Wait();
                     foreach (var encouragement in _defaultEncouragements[mood.Name])
                     {
-                        encouragement.Mood = mood.Name;
                         encouragement.MoodId = mood.Id;
                         SaveEncouragementAsync(encouragement).Wait();
                     }
@@ -36,10 +35,10 @@ namespace Encourage.Mobile.Data
             return _database.Table<Encouragement>().ToListAsync();
         }
 
-        public Task<List<Encouragement>> GetEncouragementsAsync(string mood)
+        public Task<List<Encouragement>> GetEncouragementsForMoodAsync(int moodId)
         {
             return _database.Table<Encouragement>()
-                            .Where(i => i.Mood == mood)
+                            .Where(i => i.MoodId == moodId)
                             .ToListAsync();
         }
 

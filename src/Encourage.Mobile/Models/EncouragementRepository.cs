@@ -15,9 +15,9 @@ namespace Encourage.Mobile.Models
             _database = database;
         }
 
-        public async Task<Encouragement> GetRandomEncouragement(string mood)
+        public async Task<Encouragement> GetRandomEncouragement(Mood mood)
         {
-            var encouragements = await _database.GetEncouragementsAsync(mood);
+            var encouragements = await _database.GetEncouragementsForMoodAsync(mood.Id);
             if (encouragements.Count == 0)
             {
                 return new Encouragement
