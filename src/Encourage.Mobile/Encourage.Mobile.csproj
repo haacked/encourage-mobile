@@ -23,6 +23,5 @@
     <ItemGroup>
       <Folder Include="Models\" />
       <Folder Include="Data\" />
-      <Folder Include="UI\" />
     </ItemGroup>
 </Project>
