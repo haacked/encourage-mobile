@@ -43,7 +43,7 @@ namespace Encourage
 
 				await Navigation.PushAsync(new MoodEditor
 				{
-					BindingContext = _viewModel.CurrentMood
+					BindingContext = new MoodEditorViewModel(_viewModel.CurrentMood, _database)
 				});
 				_viewModel.CurrentMood = null;
 			}

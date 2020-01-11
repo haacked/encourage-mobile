@@ -7,9 +7,9 @@
 	<ScrollView>
 		<StackLayout>
 			<Label Text="Name" />
-			<Entry x:Name="moodNameEntry" Text="{Binding Name}" />
+			<Entry x:Name="moodNameEntry" Text="{Binding Mood.Name}" Completed="OnMoodNameCompleted" />
 			<Label Text="Background Color" />
-			<Entry x:Name="backgroundColorEntry" Text="{Binding BackgroundColor}" />
+			<Entry x:Name="backgroundColorEntry" Text="{Binding Mood.BackgroundColor}" Completed="OnBackgroundColorCompleted" />
 		</StackLayout>
 	</ScrollView>
 </ContentPage>

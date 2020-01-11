@@ -65,7 +65,7 @@ namespace Encourage.Mobile.ViewModels
 			CurrentEncouragement = await _encouragementRepository.GetRandomEncouragement(mood);
 		}
 
-		async void OnMoodEditing(object obj)
+		void OnMoodEditing(object obj)
 		{
 			var mood = obj as Mood ?? throw new InvalidOperationException("A null mood was clicked");
 			CurrentMood = mood;

@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-
+using Encourage.Mobile.ViewModels;
 using Xamarin.Forms;
 
 namespace Encourage.Mobile
@@ -10,6 +9,22 @@ namespace Encourage.Mobile
 		public MoodEditor()
 		{
 			InitializeComponent();
+		}
+
+		protected void OnMoodNameCompleted(object sender, EventArgs e)
+		{
+			var newMoodName = ((Entry)sender).Text;
+			var vm = (MoodEditorViewModel)BindingContext;
+			vm.Mood.Name = newMoodName;
+			vm.SaveMood();
+		}
+
+		protected void OnBackgroundColorCompleted(object sender, EventArgs e)
+		{
+			var newBackgroundColor = ((Entry)sender).Text;
+			var vm = (MoodEditorViewModel)BindingContext;
+			vm.Mood.BackgroundColor = newBackgroundColor;
+			vm.SaveMood();
 		}
 	}
 }
