@@ -115,7 +115,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Encourage.Mobile\Encourage.Mobile.csproj">
       <Project>{9D93EFB4-4E2F-42CC-A79E-5AD4375139CB}</Project>
-      <Name>Encourage</Name>
+      <Name>Encourage.Mobile</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Encourage.MainPage"
-             Visual="Material"
-             Title="How Are You Feeling?">
-    <StackLayout x:Name="moodsLayout">
-        <BindableLayout.ItemTemplate>
-            <DataTemplate>
-                <Button
-                    Text="{Binding Name}"
-                    BackgroundColor="{Binding BackgroundColor}"
-                    TextColor="{Binding TextColor}"
-                    VerticalOptions="FillAndExpand"
-                    Clicked="OnButtonClicked"/>
-            </DataTemplate>
-        </BindableLayout.ItemTemplate>
-    </StackLayout>
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="Encourage.MainPage"
+	Visual="Material"
+	Title="How Are You Feeling?">
+	<StackLayout x:Name="moodsLayout">
+		<BindableLayout.ItemTemplate>
+			<DataTemplate>
+				<Button
+					Text="{Binding Name}"
+					BackgroundColor="{Binding BackgroundColor}"
+					TextColor="{Binding TextColor}"
+					VerticalOptions="FillAndExpand"
+					Clicked="OnButtonClicked"/>
+			</DataTemplate>
+		</BindableLayout.ItemTemplate>
+	</StackLayout>
 </ContentPage>
