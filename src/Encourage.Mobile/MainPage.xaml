@@ -1,9 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage
+	x:Name="MainContentPage"
+	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:effects="clr-namespace:Encourage.Mobile.Effects"
+	xmlns:vm="clr-namespace:Encourage.Mobile.ViewModels"
 	x:Class="Encourage.MainPage"
 	Visual="Material"
 	Title="How Are You Feeling?">
+	<ContentPage.BindingContext>
+		<vm:MainPageViewModel />
+	</ContentPage.BindingContext>
 	<StackLayout x:Name="moodsLayout">
 		<BindableLayout.ItemTemplate>
 			<DataTemplate>
@@ -12,7 +19,14 @@
 					BackgroundColor="{Binding BackgroundColor}"
 					TextColor="{Binding TextColor}"
 					VerticalOptions="FillAndExpand"
-					Clicked="OnButtonClicked"/>
+					Command="{Binding BindingContext.ShowAlertCommand, Source={x:Reference MainContentPage}}"
+					CommandParameter="{Binding .}"
+					effects:LongPressedEffect.Command="{Binding BindingContext.ButtonPressedCommand, Source={x:Reference MainContentPage}}"
+					effects:LongPressedEffect.CommandParameter="{Binding .}">
+					<Button.Effects>
+						<effects:LongPressedEffect />
+					</Button.Effects>
+				</Button>
 			</DataTemplate>
 		</BindableLayout.ItemTemplate>
 	</StackLayout>
