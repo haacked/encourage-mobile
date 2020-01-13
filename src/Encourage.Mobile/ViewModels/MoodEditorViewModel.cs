@@ -1,7 +1,6 @@
-﻿using System.Windows.Input;
+﻿using System.Threading.Tasks;
 using Encourage.Mobile.Data;
 using Encourage.Mobile.Models;
-using Xamarin.Forms;
 
 namespace Encourage.Mobile.ViewModels
 {
@@ -17,9 +16,20 @@ namespace Encourage.Mobile.ViewModels
 
 		public Mood Mood { get; }
 
-		public async void SaveMood()
+		public bool IsEditing => Mood.Id != 0;
+
+		public string TitleMessage => IsEditing
+			? "Edit Mood"
+			: "Create Mood";
+
+		public Task<int> SaveMoodAsync()
 		{
-			await _encouragementDatabase.SaveMood(Mood);
+			return _encouragementDatabase.SaveMoodAsync(Mood);
+		}
+
+		public Task<int> DeleteMoodAsync()
+		{
+			return _encouragementDatabase.DeleteMoodAsync(Mood);
 		}
 	}
 }

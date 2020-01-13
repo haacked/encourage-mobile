@@ -11,20 +11,37 @@ namespace Encourage.Mobile
 			InitializeComponent();
 		}
 
+		MoodEditorViewModel ViewModel => (MoodEditorViewModel)BindingContext;
+
 		protected void OnMoodNameCompleted(object sender, EventArgs e)
 		{
 			var newMoodName = ((Entry)sender).Text;
-			var vm = (MoodEditorViewModel)BindingContext;
+			var vm = ViewModel;
 			vm.Mood.Name = newMoodName;
-			vm.SaveMood();
 		}
 
 		protected void OnBackgroundColorCompleted(object sender, EventArgs e)
 		{
 			var newBackgroundColor = ((Entry)sender).Text;
-			var vm = (MoodEditorViewModel)BindingContext;
+			var vm = ViewModel;
 			vm.Mood.BackgroundColor = newBackgroundColor;
-			vm.SaveMood();
+		}
+
+		protected async void OnSaveClicked(object sender, EventArgs e)
+		{
+			// TODO: Am I doing this right. This seems wonky. Look into 2-way data binding.
+			((IEntryController)moodNameEntry).SendCompleted();
+			((IEntryController)backgroundColorEntry).SendCompleted();
+
+			await ViewModel.SaveMoodAsync();
+
+			await Navigation.PopAsync();
+		}
+
+		protected async void OnDeleteMoodClicked(object sender, EventArgs e)
+		{
+			await ViewModel.DeleteMoodAsync();
+			await Navigation.PopAsync();
 		}
 	}
 }

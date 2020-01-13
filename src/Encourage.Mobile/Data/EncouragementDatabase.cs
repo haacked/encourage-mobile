@@ -19,7 +19,7 @@ namespace Encourage.Mobile.Data
 				_database.CreateTableAsync<Mood>().Wait();
 				foreach (var (mood, encouragements) in _defaultEncouragements)
 				{
-					SaveMood(mood).Wait();
+					SaveMoodAsync(mood).Wait();
 					foreach (var encouragement in encouragements)
 					{
 						encouragement.MoodId = mood.Id;
@@ -66,9 +66,19 @@ namespace Encourage.Mobile.Data
 			return GetByIdAsync<Mood>(id);
 		}
 
-		public Task<int> SaveMood(Mood mood)
+		public Task<int> SaveMoodAsync(Mood mood)
 		{
 			return SaveEntityAsync(mood);
+		}
+
+		public async Task<int> DeleteMoodAsync(Mood mood)
+		{
+			var encouragements = await GetEncouragementsForMoodAsync(mood.Id);
+			foreach (var encouragement in encouragements)
+			{
+				await DeleteEncouragmentAsync(encouragement);
+			}
+			return await _database.DeleteAsync(mood);
 		}
 
 		Task<TEntity> GetByIdAsync<TEntity>(int id) where TEntity : IDatabaseEntity, new()

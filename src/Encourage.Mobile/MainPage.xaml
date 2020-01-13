@@ -11,6 +11,10 @@
 	<ContentPage.BindingContext>
 		<vm:MainPageViewModel />
 	</ContentPage.BindingContext>
+	<ContentPage.ToolbarItems>
+        <ToolbarItem Text="+"
+                     Clicked="OnMoodAddedClicked" />
+    </ContentPage.ToolbarItems>
 	<StackLayout x:Name="moodsLayout">
 		<BindableLayout.ItemTemplate>
 			<DataTemplate>

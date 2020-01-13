@@ -3,13 +3,16 @@
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	x:Class="Encourage.Mobile.MoodEditor"
-	Title="Edit Mood">
+	Visual="Material"
+	Title="{Binding TitleMessage}">
 	<ScrollView>
 		<StackLayout>
 			<Label Text="Name" />
 			<Entry x:Name="moodNameEntry" Text="{Binding Mood.Name}" Completed="OnMoodNameCompleted" />
 			<Label Text="Background Color" />
 			<Entry x:Name="backgroundColorEntry" Text="{Binding Mood.BackgroundColor}" Completed="OnBackgroundColorCompleted" />
+			<Button Text="Save Changes" Clicked="OnSaveClicked" />
+			<Button Text="Delete Mood" IsVisible="{Binding IsEditing}" Clicked="OnDeleteMoodClicked" />
 		</StackLayout>
 	</ScrollView>
 </ContentPage>

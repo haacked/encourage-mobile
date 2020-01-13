@@ -49,6 +49,14 @@ namespace Encourage
 			}
 		}
 
+		async void OnMoodAddedClicked(object sender, EventArgs e)
+		{
+			await Navigation.PushAsync(new MoodEditor
+			{
+				BindingContext = new MoodEditorViewModel(new Mood(), _database)
+			});
+		}
+
 		protected override void OnAppearing()
 		{
 			base.OnAppearing();
