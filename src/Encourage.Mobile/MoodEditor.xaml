@@ -9,9 +9,9 @@
 	<ScrollView>
 		<StackLayout>
 			<Label Text="Name" />
-			<Entry x:Name="moodNameEntry" Text="{Binding Mood.Name}" Completed="OnMoodNameCompleted" />
+			<Entry x:Name="moodNameEntry" Text="{Binding Mood.Name}" />
 			<Label Text="Background Color" />
-			<Entry x:Name="backgroundColorEntry" Text="{Binding Mood.BackgroundColor}" Completed="OnBackgroundColorCompleted" />
+			<Entry x:Name="backgroundColorEntry" Text="{Binding Mood.BackgroundColor}" />
 			<Button Text="Save Changes" Clicked="OnSaveClicked" />
 			<Button Text="Delete Mood" IsVisible="{Binding IsEditing}" Clicked="OnDeleteMoodClicked" />
 			<Label Text="{Binding EncouragementCountLabel}" />
