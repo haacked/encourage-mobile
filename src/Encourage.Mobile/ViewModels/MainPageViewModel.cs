@@ -31,7 +31,7 @@ namespace Encourage.Mobile.ViewModels
 			}
 			set
 			{
-				SetValue(nameof(CurrentEncouragement), value, ref _currentEncouragement);
+				SetNullableValue(nameof(CurrentEncouragement), value, ref _currentEncouragement);
 			}
 		}
 
@@ -44,7 +44,7 @@ namespace Encourage.Mobile.ViewModels
 			}
 			set
 			{
-				SetValue(nameof(CurrentMood), value, ref _currentMood);
+				SetNullableValue(nameof(CurrentMood), value, ref _currentMood);
 			}
 		}
 

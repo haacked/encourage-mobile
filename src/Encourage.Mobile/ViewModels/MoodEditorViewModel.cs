@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -9,7 +10,7 @@ using Encourage.Mobile.Models;
 
 namespace Encourage.Mobile.ViewModels
 {
-	public class MoodEditorViewModel : ViewModel, INotifyPropertyChanged
+	public class MoodEditorViewModel : ViewModel
 	{
 		private readonly EncouragementDatabase _encouragementDatabase;
 
@@ -30,7 +31,7 @@ namespace Encourage.Mobile.ViewModels
 
 		public string EncouragementCountLabel { get; private set; } = "Placeholder until things are loaded";
 
-		public ObservableCollection<Encouragement> Encouragements { get; } = new ObservableCollection<Encouragement>();
+		public ObservableCollection<EncouragementEditorViewModel> Encouragements { get; } = new ObservableCollection<EncouragementEditorViewModel>();
 
 		public Task<int> SaveMoodAsync()
 		{
@@ -47,14 +48,14 @@ namespace Encourage.Mobile.ViewModels
 			var encouragements = await _encouragementDatabase.GetEncouragementsForMoodAsync(Mood.Id);
 			foreach (var encouragement in encouragements)
 			{
-				Encouragements.Add(encouragement);
+				Encouragements.Add(new EncouragementEditorViewModel(encouragement));
 			}
 			// We add the event handler AFTER we load the initial set of encouragements.
 			Encouragements.CollectionChanged += async (s, e) =>
 			{
 				if (e.Action == NotifyCollectionChangedAction.Remove)
 				{
-					foreach (var removed in e.OldItems.Cast<Encouragement>())
+					foreach (var removed in e.OldItems.Cast<EncouragementEditorViewModel>().Select(r => r.Encouragement))
 					{
 						await _encouragementDatabase.DeleteEncouragmentAsync(removed);
 					}
@@ -62,6 +63,11 @@ namespace Encourage.Mobile.ViewModels
 			};
 			EncouragementCountLabel = $"This mood has {Encouragements.Count} encouragements";
 			NotifyPropertyChange(nameof(EncouragementCountLabel));
+		}
+
+		public Task<int> SaveEncouragementAsync(Encouragement encouragement)
+		{
+			return _encouragementDatabase.SaveEncouragementAsync(encouragement);
 		}
 	}
 }

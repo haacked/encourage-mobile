@@ -1,5 +1,4 @@
 ﻿using System;
-using Encourage.Mobile.Models;
 using Encourage.Mobile.ViewModels;
 using Xamarin.Forms;
 
@@ -45,11 +44,34 @@ namespace Encourage.Mobile
 			await Navigation.PopAsync();
 		}
 
+		protected void OnEditEncouragementClicked(object sender, EventArgs e)
+		{
+			var encouragement = GetBoundObject<EncouragementEditorViewModel>(sender);
+			encouragement.IsEditing = true;
+		}
+
+		protected async void OnSaveEncouragementClicked(object sender, EventArgs e)
+		{
+			var encouragement = GetBoundObject<EncouragementEditorViewModel>(sender);
+			await ViewModel.SaveEncouragementAsync(encouragement.Encouragement);
+			encouragement.IsEditing = false;
+		}
+
+		protected void OnCancelClicked(object sender, EventArgs e)
+		{
+			var encouragement = GetBoundObject<EncouragementEditorViewModel>(sender);
+			encouragement.IsEditing = false;
+		}
+
 		protected void OnDeleteEncouragementClicked(object sender, EventArgs e)
 		{
-			var menuItem = (MenuItem)sender;
-			var encouragement = (Encouragement)menuItem.BindingContext;
+			var encouragement = GetBoundObject<EncouragementEditorViewModel>(sender);
 			ViewModel.Encouragements.Remove(encouragement);
+		}
+
+		static T GetBoundObject<T>(object sender)
+		{
+			return (T)((BindableObject)sender).BindingContext;
 		}
 	}
 }

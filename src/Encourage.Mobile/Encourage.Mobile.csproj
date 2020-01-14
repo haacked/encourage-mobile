@@ -21,5 +21,6 @@
       <Folder Include="Data\" />
       <Folder Include="Effects\" />
       <Folder Include="ViewModels\" />
+      <Folder Include="Converters\" />
     </ItemGroup>
 </Project>

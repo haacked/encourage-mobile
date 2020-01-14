@@ -7,9 +7,18 @@ namespace Encourage.Mobile.ViewModels
 	{
 		public event PropertyChangedEventHandler? PropertyChanged;
 
-		protected void SetValue<T>(string propertyName, T newValue, ref T privateMember)
+		protected void SetValue<T>(string propertyName, T newValue, ref T privateMember) where T : IEquatable<T>
 		{
-			if (!ReferenceEquals(privateMember, newValue))
+			if (newValue is object && !newValue.Equals(privateMember) || newValue is null && privateMember is object)
+			{
+				privateMember = newValue;
+				NotifyPropertyChange(propertyName);
+			}
+		}
+
+		protected void SetNullableValue<T>(string propertyName, T? newValue, ref T? privateMember) where T : class
+		{
+			if (!ReferenceEquals(newValue, privateMember))
 			{
 				privateMember = newValue;
 				NotifyPropertyChange(propertyName);

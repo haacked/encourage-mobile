@@ -2,6 +2,7 @@
 <ContentPage
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:converters="clr-namespace:Encourage.Mobile.Converters"
 	x:Class="Encourage.Mobile.MoodEditor"
 	Visual="Material"
 	Title="{Binding TitleMessage}">
@@ -16,21 +17,30 @@
 			<Label Text="{Binding EncouragementCountLabel}" />
 			<ListView
 				x:Name="encouragementsList"
-				ItemsSource="{Binding Encouragements}" RowHeight="150" HorizontalOptions="FillAndExpand">
+				ItemsSource="{Binding Encouragements}"
+				RowHeight="200"
+				HorizontalOptions="FillAndExpand">
 				<ListView.ItemTemplate>
 					<DataTemplate>
 						<ViewCell>
 							<ViewCell.ContextActions>
+								<MenuItem Clicked="OnEditEncouragementClicked" Text="Edit" />
 								<MenuItem Clicked="OnDeleteEncouragementClicked" Text="Delete" IsDestructive="True" />
 							</ViewCell.ContextActions>
 							<ViewCell.View>
 								<StackLayout Orientation="Vertical">
 									<!--Non Editable State-->
-									<StackLayout IsVisible="{Binding isNotSaveState}">
+									<StackLayout>
 										<Label Text="Message" FontAttributes="Bold" />
-										<Label Text="{Binding Message}" />
+										<Label Text="{Binding Encouragement.Message}" IsVisible="{Binding IsEditing, Converter={converters:InverseBooleanConverter}}" />
+										<Entry Text="{Binding Encouragement.Message}" IsVisible="{Binding IsEditing}" />
 										<Label Text="Image Url" FontAttributes="Bold" />
-										<Label Text="{Binding ImageUrl}" />
+										<Label Text="{Binding Encouragement.ImageUrl}" IsVisible="{Binding IsEditing, Converter={converters:InverseBooleanConverter}}" />
+										<Entry Text="{Binding Encouragement.ImageUrl}" IsVisible="{Binding IsEditing}" />
+										<StackLayout Orientation="Horizontal">
+											<Button Text="Save" IsVisible="{Binding IsEditing}" Clicked="OnSaveEncouragementClicked" />
+											<Button Text="Cancel" IsVisible="{Binding IsEditing}" Clicked="OnCancelClicked" />
+										</StackLayout>
 									</StackLayout>
 								</StackLayout>
 							</ViewCell.View>
