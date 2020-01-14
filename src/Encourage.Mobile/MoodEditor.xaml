@@ -14,43 +14,45 @@
 			<Entry x:Name="backgroundColorEntry" Text="{Binding Mood.BackgroundColor}" />
 			<Button Text="Save Changes" Clicked="OnSaveClicked" />
 			<Button Text="Delete Mood" IsVisible="{Binding IsEditing}" Clicked="OnDeleteMoodClicked" />
-			<Label Text="{Binding EncouragementCountLabel}" />
-			<Button Text="Add Encouragement" Clicked="OnAddEncouragementClicked" />
-			<ListView
-				x:Name="encouragementsList"
-				ItemsSource="{Binding Encouragements}"
-				RowHeight="200"
-				HorizontalOptions="FillAndExpand">
-				<ListView.ItemTemplate>
-					<DataTemplate>
-						<ViewCell>
-							<ViewCell.ContextActions>
-								<MenuItem Clicked="OnEditEncouragementClicked" Text="Edit" />
-								<MenuItem Clicked="OnDeleteEncouragementClicked" Text="Delete" IsDestructive="True" />
-							</ViewCell.ContextActions>
-							<ViewCell.View>
-								<StackLayout Orientation="Vertical">
-									<!--Non Editable State-->
-									<StackLayout>
-										<Label Text="Message" FontAttributes="Bold" />
-										<Label Text="{Binding Encouragement.Message}" IsVisible="{Binding IsEditing, Converter={converters:InverseBooleanConverter}}" />
-										<Entry Text="{Binding Encouragement.Message}" IsVisible="{Binding IsEditing}" />
-										<Label Text="Image Url" FontAttributes="Bold" />
-										<Image Source="{Binding Encouragement.ImageUrl}"
-											HeightRequest="110"
-											IsVisible="{Binding IsEditing, Converter={converters:InverseBooleanConverter}}" />
-										<Entry Text="{Binding Encouragement.ImageUrl}" IsVisible="{Binding IsEditing}" />
-										<StackLayout Orientation="Horizontal">
-											<Button Text="Save" IsVisible="{Binding IsEditing}" Clicked="OnSaveEncouragementClicked" />
-											<Button Text="Cancel" IsVisible="{Binding IsEditing}" Clicked="OnCancelEncouragementEditClicked" />
+			<StackLayout IsVisible="{Binding IsEditing}">
+				<Label Text="{Binding EncouragementCountLabel}" />
+				<Button Text="Add Encouragement" Clicked="OnAddEncouragementClicked" />
+				<ListView
+					x:Name="encouragementsList"
+					ItemsSource="{Binding Encouragements}"
+					RowHeight="200"
+					HorizontalOptions="FillAndExpand">
+					<ListView.ItemTemplate>
+						<DataTemplate>
+							<ViewCell>
+								<ViewCell.ContextActions>
+									<MenuItem Clicked="OnEditEncouragementClicked" Text="Edit" />
+									<MenuItem Clicked="OnDeleteEncouragementClicked" Text="Delete" IsDestructive="True" />
+								</ViewCell.ContextActions>
+								<ViewCell.View>
+									<StackLayout Orientation="Vertical">
+										<!--Non Editable State-->
+										<StackLayout>
+											<Label Text="Message" FontAttributes="Bold" />
+											<Label Text="{Binding Encouragement.Message}" IsVisible="{Binding IsEditing, Converter={converters:InverseBooleanConverter}}" />
+											<Entry Text="{Binding Encouragement.Message}" IsVisible="{Binding IsEditing}" />
+											<Label Text="Image Url" FontAttributes="Bold" />
+											<Image Source="{Binding Encouragement.ImageUrl}"
+												HeightRequest="110"
+												IsVisible="{Binding IsEditing, Converter={converters:InverseBooleanConverter}}" />
+											<Entry Text="{Binding Encouragement.ImageUrl}" IsVisible="{Binding IsEditing}" />
+											<StackLayout Orientation="Horizontal">
+												<Button Text="Save" IsVisible="{Binding IsEditing}" Clicked="OnSaveEncouragementClicked" />
+												<Button Text="Cancel" IsVisible="{Binding IsEditing}" Clicked="OnCancelEncouragementEditClicked" />
+											</StackLayout>
 										</StackLayout>
 									</StackLayout>
-								</StackLayout>
-							</ViewCell.View>
-						</ViewCell>
-					</DataTemplate>
-				</ListView.ItemTemplate>
-			</ListView>
+								</ViewCell.View>
+							</ViewCell>
+						</DataTemplate>
+					</ListView.ItemTemplate>
+				</ListView>
+			</StackLayout>
 		</StackLayout>
 	</ScrollView>
 </ContentPage>
