@@ -4,21 +4,19 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="Encourage.Mobile.EncouragementPage"
     Visual="Material">
-    <Grid VerticalOptions="StartAndExpand">
-        <Grid.RowDefinitions>
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="100" />
-    </Grid.RowDefinitions>
-        <Image
-            Source="{Binding ImageUrl}" />
-        <Label
-            Text="{Binding Message}"
-            FontSize="Title"
-            TextColor="#336699"
-            HorizontalTextAlignment="Center"
-            HorizontalOptions="CenterAndExpand"
-            VerticalOptions="CenterAndExpand"
-            Grid.Row="1" />
-
-    </Grid>
+	<Grid VerticalOptions="StartAndExpand">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="100" />
+		</Grid.RowDefinitions>
+		<Image Source="{Binding ImageUrl}" />
+		<Label
+			Text="{Binding Message}"
+			FontSize="Title"
+			TextColor="#336699"
+			HorizontalTextAlignment="Center"
+			HorizontalOptions="CenterAndExpand"
+			VerticalOptions="CenterAndExpand"
+			Grid.Row="1" />
+	</Grid>
 </ContentPage>

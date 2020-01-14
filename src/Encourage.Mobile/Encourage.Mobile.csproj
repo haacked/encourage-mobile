@@ -17,12 +17,10 @@
         <PackageReference Include="sqlite-net-pcl" Version="1.6.292" />
     </ItemGroup>
     <ItemGroup>
-      <Compile Remove="EncouragementDisplay.cs" />
-      <Compile Remove="EncouragementDisplay.cs" />
-    </ItemGroup>
-    <ItemGroup>
       <Folder Include="Models\" />
       <Folder Include="Data\" />
-      <Folder Include="UI\" />
+      <Folder Include="Effects\" />
+      <Folder Include="ViewModels\" />
+      <Folder Include="Converters\" />
     </ItemGroup>
 </Project>

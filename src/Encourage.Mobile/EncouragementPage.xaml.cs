@@ -3,14 +3,14 @@ using Xamarin.Forms;
 
 namespace Encourage.Mobile
 {
-    public partial class EncouragementPage : ContentPage
-    {
-        public EncouragementPage()
-        {
-            InitializeComponent();
-        }
+	public partial class EncouragementPage : ContentPage
+	{
+		public EncouragementPage()
+		{
+			InitializeComponent();
+		}
 
-        async void OnNavigateBackClicked(object sender, EventArgs args)
-            => await Navigation.PopAsync();
-    }
+		async void OnNavigateBackClicked(object sender, EventArgs args)
+			=> await Navigation.PopAsync();
+	}
 }
