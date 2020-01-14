@@ -35,7 +35,9 @@
 										<Label Text="{Binding Encouragement.Message}" IsVisible="{Binding IsEditing, Converter={converters:InverseBooleanConverter}}" />
 										<Entry Text="{Binding Encouragement.Message}" IsVisible="{Binding IsEditing}" />
 										<Label Text="Image Url" FontAttributes="Bold" />
-										<Label Text="{Binding Encouragement.ImageUrl}" IsVisible="{Binding IsEditing, Converter={converters:InverseBooleanConverter}}" />
+										<Image Source="{Binding Encouragement.ImageUrl}"
+											HeightRequest="110"
+											IsVisible="{Binding IsEditing, Converter={converters:InverseBooleanConverter}}" />
 										<Entry Text="{Binding Encouragement.ImageUrl}" IsVisible="{Binding IsEditing}" />
 										<StackLayout Orientation="Horizontal">
 											<Button Text="Save" IsVisible="{Binding IsEditing}" Clicked="OnSaveEncouragementClicked" />
