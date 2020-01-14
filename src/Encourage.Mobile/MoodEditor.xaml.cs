@@ -16,7 +16,6 @@ namespace Encourage.Mobile
 		protected async void OnSaveClicked(object sender, EventArgs e)
 		{
 			await ViewModel.SaveMoodAsync();
-
 			await Navigation.PopAsync();
 		}
 
@@ -24,6 +23,11 @@ namespace Encourage.Mobile
 		{
 			await ViewModel.DeleteMoodAsync();
 			await Navigation.PopAsync();
+		}
+
+		protected void OnAddEncouragementClicked(object sender, EventArgs e)
+		{
+			ViewModel.AddEncouragement();
 		}
 
 		protected void OnEditEncouragementClicked(object sender, EventArgs e)
@@ -39,10 +43,9 @@ namespace Encourage.Mobile
 			encouragement.IsEditing = false;
 		}
 
-		protected void OnCancelClicked(object sender, EventArgs e)
+		protected void OnCancelEncouragementEditClicked(object sender, EventArgs e)
 		{
-			var encouragement = GetBoundObject<EncouragementEditorViewModel>(sender);
-			encouragement.IsEditing = false;
+			ViewModel.CancelEncouragementEdit();
 		}
 
 		protected void OnDeleteEncouragementClicked(object sender, EventArgs e)

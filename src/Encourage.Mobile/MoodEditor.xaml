@@ -15,6 +15,7 @@
 			<Button Text="Save Changes" Clicked="OnSaveClicked" />
 			<Button Text="Delete Mood" IsVisible="{Binding IsEditing}" Clicked="OnDeleteMoodClicked" />
 			<Label Text="{Binding EncouragementCountLabel}" />
+			<Button Text="Add Encouragement" Clicked="OnAddEncouragementClicked" />
 			<ListView
 				x:Name="encouragementsList"
 				ItemsSource="{Binding Encouragements}"
@@ -41,7 +42,7 @@
 										<Entry Text="{Binding Encouragement.ImageUrl}" IsVisible="{Binding IsEditing}" />
 										<StackLayout Orientation="Horizontal">
 											<Button Text="Save" IsVisible="{Binding IsEditing}" Clicked="OnSaveEncouragementClicked" />
-											<Button Text="Cancel" IsVisible="{Binding IsEditing}" Clicked="OnCancelClicked" />
+											<Button Text="Cancel" IsVisible="{Binding IsEditing}" Clicked="OnCancelEncouragementEditClicked" />
 										</StackLayout>
 									</StackLayout>
 								</StackLayout>

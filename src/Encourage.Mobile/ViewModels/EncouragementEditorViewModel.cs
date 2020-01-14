@@ -4,6 +4,10 @@ namespace Encourage.Mobile.ViewModels
 {
 	public class EncouragementEditorViewModel : ViewModel
 	{
+		public EncouragementEditorViewModel() : this(new Encouragement())
+		{
+		}
+
 		public EncouragementEditorViewModel(Encouragement encouragement)
 		{
 			Encouragement = encouragement;

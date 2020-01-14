@@ -65,8 +65,27 @@ namespace Encourage.Mobile.ViewModels
 			NotifyPropertyChange(nameof(EncouragementCountLabel));
 		}
 
+		public void AddEncouragement()
+		{
+			Encouragements.Insert(0, new EncouragementEditorViewModel { IsEditing = true });
+		}
+
+		public void CancelEncouragementEdit()
+		{
+			var unsavedEncouragements = Encouragements.Where(e => e.Encouragement.Id == 0).ToList();
+			foreach (var unsaved in unsavedEncouragements)
+			{
+				Encouragements.Remove(unsaved);
+			}
+			foreach (var encouragement in Encouragements)
+			{
+				encouragement.IsEditing = false;
+			}
+		}
+
 		public Task<int> SaveEncouragementAsync(Encouragement encouragement)
 		{
+			encouragement.MoodId = Mood.Id;
 			return _encouragementDatabase.SaveEncouragementAsync(encouragement);
 		}
 	}
