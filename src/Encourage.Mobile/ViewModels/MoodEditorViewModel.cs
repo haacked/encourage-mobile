@@ -1,10 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Threading.Tasks;
 using Encourage.Mobile.Data;
 using Encourage.Mobile.Models;
 
 namespace Encourage.Mobile.ViewModels
 {
-	public class MoodEditorViewModel
+	public class MoodEditorViewModel : ViewModel, INotifyPropertyChanged
 	{
 		private readonly EncouragementDatabase _encouragementDatabase;
 
@@ -12,6 +14,7 @@ namespace Encourage.Mobile.ViewModels
 		{
 			Mood = mood;
 			_encouragementDatabase = encouragementDatabase;
+			InitializePropertiesAsync();
 		}
 
 		public Mood Mood { get; }
@@ -22,6 +25,10 @@ namespace Encourage.Mobile.ViewModels
 			? "Edit Mood"
 			: "Create Mood";
 
+		public string EncouragementCountLabel { get; private set; } = "Placeholder until things are loaded";
+
+		public List<Encouragement> Encouragements { get; private set; } = null!;
+
 		public Task<int> SaveMoodAsync()
 		{
 			return _encouragementDatabase.SaveMoodAsync(Mood);
@@ -30,6 +37,14 @@ namespace Encourage.Mobile.ViewModels
 		public Task<int> DeleteMoodAsync()
 		{
 			return _encouragementDatabase.DeleteMoodAsync(Mood);
+		}
+
+		async void InitializePropertiesAsync()
+		{
+			Encouragements = await _encouragementDatabase.GetEncouragementsForMoodAsync(Mood.Id);
+			NotifyPropertyChange(nameof(Encouragements));
+			EncouragementCountLabel = $"This mood has {Encouragements.Count} encouragements";
+			NotifyPropertyChange(nameof(EncouragementCountLabel));
 		}
 	}
 }

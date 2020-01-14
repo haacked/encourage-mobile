@@ -34,11 +34,11 @@ namespace Encourage.Mobile.Data
 			return _database.Table<Encouragement>().ToListAsync();
 		}
 
-		public Task<List<Encouragement>> GetEncouragementsForMoodAsync(int moodId)
+		public async Task<List<Encouragement>> GetEncouragementsForMoodAsync(int moodId)
 		{
-			return _database.Table<Encouragement>()
+			return (await _database.Table<Encouragement>()
 							.Where(i => i.MoodId == moodId)
-							.ToListAsync();
+							.ToListAsync()) ?? new List<Encouragement>();
 		}
 
 		public Task<Encouragement> GetEncouragmentAsync(int id)

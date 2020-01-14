@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace Encourage.Mobile.ViewModels
 {
-	public class MainPageViewModel : INotifyPropertyChanged
+	public class MainPageViewModel : ViewModel
 	{
 		readonly EncouragementDatabase _database = new EncouragementDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Encouragements.db3"));
 		readonly EncouragementRepository _encouragementRepository;
@@ -21,8 +21,6 @@ namespace Encourage.Mobile.ViewModels
 			ShowAlertCommand = new Command(OnMoodSelected);
 			ButtonPressedCommand = new Command(OnMoodEditing);
 		}
-
-		public event PropertyChangedEventHandler? PropertyChanged;
 
 		Encouragement? _currentEncouragement;
 		public Encouragement? CurrentEncouragement
@@ -47,15 +45,6 @@ namespace Encourage.Mobile.ViewModels
 			set
 			{
 				SetValue(nameof(CurrentMood), value, ref _currentMood);
-			}
-		}
-
-		void SetValue<T>(string propertyName, T newValue, ref T privateMember)
-		{
-			if (!ReferenceEquals(privateMember, newValue))
-			{
-				privateMember = newValue;
-				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 

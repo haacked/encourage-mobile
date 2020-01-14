@@ -13,6 +13,23 @@
 			<Entry x:Name="backgroundColorEntry" Text="{Binding Mood.BackgroundColor}" Completed="OnBackgroundColorCompleted" />
 			<Button Text="Save Changes" Clicked="OnSaveClicked" />
 			<Button Text="Delete Mood" IsVisible="{Binding IsEditing}" Clicked="OnDeleteMoodClicked" />
+			<Label Text="{Binding EncouragementCountLabel}" />
+			<ListView
+				x:Name="encouragementsList"
+				ItemsSource="{Binding Encouragements}" RowHeight="150" HorizontalOptions="FillAndExpand">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<ViewCell.View>
+								<StackLayout Orientation="Vertical"  HorizontalOptions="Start" VerticalOptions="FillAndExpand">
+									<Entry Text="{Binding Message}" />
+									<Entry Text="{Binding ImageUrl}" />
+								</StackLayout>
+							</ViewCell.View>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
 		</StackLayout>
 	</ScrollView>
 </ContentPage>
