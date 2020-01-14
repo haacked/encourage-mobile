@@ -20,10 +20,18 @@
 				<ListView.ItemTemplate>
 					<DataTemplate>
 						<ViewCell>
+							<ViewCell.ContextActions>
+								<MenuItem Clicked="OnDeleteEncouragementClicked" Text="Delete" IsDestructive="True" />
+							</ViewCell.ContextActions>
 							<ViewCell.View>
-								<StackLayout Orientation="Vertical"  HorizontalOptions="Start" VerticalOptions="FillAndExpand">
-									<Entry Text="{Binding Message}" />
-									<Entry Text="{Binding ImageUrl}" />
+								<StackLayout Orientation="Vertical">
+									<!--Non Editable State-->
+									<StackLayout IsVisible="{Binding isNotSaveState}">
+										<Label Text="Message" FontAttributes="Bold" />
+										<Label Text="{Binding Message}" />
+										<Label Text="Image Url" FontAttributes="Bold" />
+										<Label Text="{Binding ImageUrl}" />
+									</StackLayout>
 								</StackLayout>
 							</ViewCell.View>
 						</ViewCell>

@@ -1,4 +1,5 @@
 ﻿using System;
+using Encourage.Mobile.Models;
 using Encourage.Mobile.ViewModels;
 using Xamarin.Forms;
 
@@ -42,6 +43,13 @@ namespace Encourage.Mobile
 		{
 			await ViewModel.DeleteMoodAsync();
 			await Navigation.PopAsync();
+		}
+
+		protected void OnDeleteEncouragementClicked(object sender, EventArgs e)
+		{
+			var menuItem = (MenuItem)sender;
+			var encouragement = (Encouragement)menuItem.BindingContext;
+			ViewModel.Encouragements.Remove(encouragement);
 		}
 	}
 }

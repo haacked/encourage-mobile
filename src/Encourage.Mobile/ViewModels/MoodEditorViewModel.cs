@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Encourage.Mobile.Data;
 using Encourage.Mobile.Models;
@@ -27,7 +30,7 @@ namespace Encourage.Mobile.ViewModels
 
 		public string EncouragementCountLabel { get; private set; } = "Placeholder until things are loaded";
 
-		public List<Encouragement> Encouragements { get; private set; } = null!;
+		public ObservableCollection<Encouragement> Encouragements { get; } = new ObservableCollection<Encouragement>();
 
 		public Task<int> SaveMoodAsync()
 		{
@@ -41,8 +44,22 @@ namespace Encourage.Mobile.ViewModels
 
 		async void InitializePropertiesAsync()
 		{
-			Encouragements = await _encouragementDatabase.GetEncouragementsForMoodAsync(Mood.Id);
-			NotifyPropertyChange(nameof(Encouragements));
+			var encouragements = await _encouragementDatabase.GetEncouragementsForMoodAsync(Mood.Id);
+			foreach (var encouragement in encouragements)
+			{
+				Encouragements.Add(encouragement);
+			}
+			// We add the event handler AFTER we load the initial set of encouragements.
+			Encouragements.CollectionChanged += async (s, e) =>
+			{
+				if (e.Action == NotifyCollectionChangedAction.Remove)
+				{
+					foreach (var removed in e.OldItems.Cast<Encouragement>())
+					{
+						await _encouragementDatabase.DeleteEncouragmentAsync(removed);
+					}
+				}
+			};
 			EncouragementCountLabel = $"This mood has {Encouragements.Count} encouragements";
 			NotifyPropertyChange(nameof(EncouragementCountLabel));
 		}
