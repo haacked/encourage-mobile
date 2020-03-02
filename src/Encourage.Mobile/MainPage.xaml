@@ -3,6 +3,7 @@
 	x:Name="MainContentPage"
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:converters="clr-namespace:Encourage.Mobile.Converters"
 	xmlns:effects="clr-namespace:Encourage.Mobile.Effects"
 	xmlns:vm="clr-namespace:Encourage.Mobile.ViewModels"
 	x:Class="Encourage.MainPage"
@@ -20,8 +21,8 @@
 			<DataTemplate>
 				<Button
 					Text="{Binding Name}"
-					BackgroundColor="{Binding BackgroundColor}"
-					TextColor="{Binding TextColor}"
+					BackgroundColor="{Binding BackgroundColor, Converter={converters:ColorConverter}}"
+					TextColor="{Binding TextColor, Converter={converters:ColorConverter}}"
 					VerticalOptions="FillAndExpand"
 					Command="{Binding BindingContext.ShowAlertCommand, Source={x:Reference MainContentPage}}"
 					CommandParameter="{Binding .}"
