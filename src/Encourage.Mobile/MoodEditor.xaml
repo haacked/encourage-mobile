@@ -11,7 +11,11 @@
 			<Label Text="Name" />
 			<Entry x:Name="moodNameEntry" Text="{Binding Mood.Name}" />
 			<Label Text="Background Color" />
-			<Entry x:Name="backgroundColorEntry" Text="{Binding Mood.BackgroundColor}" />
+			<Picker
+				x:Name="backgroundColorPicker"
+				Title="Pick a Color"
+				ItemsSource="{Binding Colors}"
+				SelectedItem="{Binding Mood.BackgroundColor}" />
 			<Button Text="Save Changes" Clicked="OnSaveClicked" />
 			<Button Text="Delete Mood" IsVisible="{Binding IsEditing}" Clicked="OnDeleteMoodClicked" />
 			<StackLayout IsVisible="{Binding IsEditing}">
