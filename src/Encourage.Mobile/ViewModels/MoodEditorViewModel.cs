@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Encourage.Mobile.Data;
@@ -19,6 +18,20 @@ namespace Encourage.Mobile.ViewModels
 			Mood = mood;
 			_encouragementDatabase = encouragementDatabase;
 			InitializePropertiesAsync();
+			Colors = Enum.GetNames(typeof(System.Drawing.KnownColor))
+				.Where(name => !name.Contains("Active")
+					&& !name.Contains("Inactive")
+					&& !name.Contains("Control")
+					&& !name.Contains("Button")
+					&& !name.StartsWith("App")
+					&& !name.Contains("Window")
+					&& !name.Contains("Track")
+					&& !name.Contains("Desktop")
+					&& !name.Contains("Info")
+					&& !name.Contains("Highlight")
+					&& !name.Contains("Scroll")
+					&& !name.Contains("Menu"))
+				.ToList();
 		}
 
 		public Mood Mood { get; }
@@ -32,6 +45,8 @@ namespace Encourage.Mobile.ViewModels
 		public string EncouragementCountLabel { get; private set; } = "Placeholder until things are loaded";
 
 		public ObservableCollection<EncouragementEditorViewModel> Encouragements { get; } = new ObservableCollection<EncouragementEditorViewModel>();
+
+		public IReadOnlyList<string> Colors { get; }
 
 		public Task<int> SaveMoodAsync()
 		{
